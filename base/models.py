@@ -20,6 +20,13 @@ class Room(md.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['-updated', '-created']
+
+    
+    def __str__(self):
+        return self.body[0:50]
+
 class Message(md.Model):
     user = md.ForeignKey(User, on_delete=md.CASCADE)
     room = md.ForeignKey(Room, on_delete=md.CASCADE)
@@ -27,5 +34,3 @@ class Message(md.Model):
     updated = md.DateTimeField(auto_now=True)
     created = md.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.body[0:50]
